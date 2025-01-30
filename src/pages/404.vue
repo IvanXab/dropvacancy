@@ -1,6 +1,7 @@
 <template>
   <div class="not-found-warning">
-    <h1>404</h1>
+    <h1>Ошибка 404</h1>
+    <p>Страница не найдена :(</p>
     <router-link class="not-found-warning__link" to="/vacancies">
       Вернуться к просмотру вакансий
     </router-link>
@@ -13,9 +14,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   height: 100vh;
   font-size: 36px;
+  text-align: center;
 
   &__link {
     text-align: center;

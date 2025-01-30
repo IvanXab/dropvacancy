@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import 'element-plus/theme-chalk/display.css';
-import Cookies from "js-cookie";
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const drawer = ref(false);
+const drawer = ref<boolean>(false);
 const router = useRouter();
+
 const handleOpenMenu = (): void => {
   drawer.value = true;
 };
-
-const handleExitAccount = (): void => {
-  Cookies.remove('ACCESS_TOKEN_KEY');
-  Cookies.remove('ID');
-  router.push({ path: 'auth' })
-};
-
 </script>
 
 <template>
@@ -27,7 +20,6 @@ const handleExitAccount = (): void => {
         <router-link class="header__link" to="/vacancies">Вакансии</router-link>
         <router-link class="header__link" to="/home">Аналитика</router-link>
         <router-link class="header__link" to="/favourites">Избранное</router-link>
-        <p class="header__link" @click="handleExitAccount">Выход</p>
       </div>
     </el-col>
   </el-row>
@@ -41,7 +33,6 @@ const handleExitAccount = (): void => {
           <router-link class="header__link" to="/vacancies" @click="drawer = false">Вакансии</router-link>
           <router-link class="header__link" to="/home" @click="drawer = false">Аналитика</router-link>
           <router-link class="header__link" to="/favourites" @click="drawer = false">Избранное</router-link>
-          <p class="header__link" @click="handleExitAccount">Выход</p>
         </div>
       </el-drawer>
     </el-col>

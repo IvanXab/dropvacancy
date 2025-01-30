@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Cookies from "js-cookie";
 
 const router = createRouter({
   history: createWebHistory(''),
@@ -13,7 +12,7 @@ const router = createRouter({
       },
       children: [
         {
-          path: '/home',
+          path: '/analytics',
           name: 'HomeView',
           component: () => import('@/pages/HomeView.vue'),
         },
@@ -40,11 +39,6 @@ const router = createRouter({
       ],
     },
     {
-      path: '/auth',
-      name: 'AuthView',
-      component: () => import('@/pages/AuthView.vue'),
-    },
-    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       redirect: {
@@ -57,13 +51,6 @@ const router = createRouter({
       component: () => import('@/pages/404.vue'),
     },
   ]
-});
-
-router.beforeEach(async (to, from, next) => {
-  if (to.name !== 'AuthView' && !Cookies.get('ACCESS_TOKEN_KEY')) {
-    next({ name: 'AuthView' })
-  }
-  else next();
 });
 
 export default router;

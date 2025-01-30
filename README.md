@@ -2,7 +2,7 @@
 
 ## Installation
 ```bash
-$ npm i
+$ npm ci
 ```
 ## Running the app
 ```bash

@@ -102,7 +102,7 @@ const handleRemoveVacancy = (): void => {
   max-width: 855px;
   padding: 20px;
   margin: 20px;
-  background-image: linear-gradient(136.68deg, #35436a 23.51%, #1e2b4e 87.44%);
+  background-image: linear-gradient(136.68deg, #192136 23.51%, #131b31 87.44%);
   border-radius: 10px;
 
   &__logo {

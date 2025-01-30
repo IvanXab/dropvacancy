@@ -11,7 +11,7 @@ import '@/app/index.scss';
 import YmapPlugin from 'vue-yandex-maps';
 
 const settings = {
-    apiKey: 'fbcadb26-fd55-4acd-ab71-0d7902b72b4a',
+    apiKey: '',
     lang: 'ru_RU',
     coordorder: 'latlong',
     debug: true,
