@@ -14,7 +14,7 @@ onMounted(async () => {
 })
 
 const settings = {
-  apiKey: '9f1bb2b3-f21c-44d6-bfe9-f8adf1f152bf',
+  apiKey: '5f1bb2b3-f21c-44d6-bfe9-f8adf1f153bf',
   lang: 'ru_RU',
   coordorder: 'latlong',
   debug: true,
