@@ -1,3 +1,4 @@
-@import "./styles/el-plus/index";
-@import "./styles/base";
-@import "./styles/main";
+@use "styles/reset";
+@use "styles/el-plus";
+@use "styles/base";
+@use "styles/main";

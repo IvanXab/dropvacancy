@@ -1,14 +1,12 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-
-import App from './index.vue';
-import router from './providers/router';
+import YmapPlugin from 'vue-yandex-maps';
 import ElementPlus from 'element-plus';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import 'element-plus/dist/index.css';
+import router from '@/app/providers/router';
 import '@/app/index.scss';
-
-import YmapPlugin from 'vue-yandex-maps';
+import App from '@/app/index.vue';
 
 const settings = {
     apiKey: '',

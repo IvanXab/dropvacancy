@@ -1,21 +1,4 @@
-@import 'base';
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
-}
-
-html,body {
+html, body {
   width: 100%;
   height: 100%;
   font-family: 'Rubik', sans-serif;
@@ -36,11 +19,7 @@ html,body {
   }
 }
 
-a {
-  all: unset;
-
-  &:hover {
-    cursor: pointer;
-  }
+#app {
+  width: 100%;
+  height: 100%;
 }
-
