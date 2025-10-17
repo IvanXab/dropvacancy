@@ -66,7 +66,11 @@ const onCloseMenu = (): void => {
   justify-content: space-between;
   align-items: center;
   padding: 32px 164px;
-  border-bottom: 1px dashed #1f1f1f;
+  border-bottom: 1px dashed #111111;
+
+  @media screen and (max-width: 678px) {
+    padding: 32px;
+  }
 
   &__logo {
     font-size: 21px;

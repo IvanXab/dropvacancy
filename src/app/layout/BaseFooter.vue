@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 32px 164px;
-  border-top: 1px dashed #1f1f1f;
+  border-top: 1px dashed #111111;
 
   &__warning {
     font-size: 16px;

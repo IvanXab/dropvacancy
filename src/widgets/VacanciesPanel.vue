@@ -1,99 +1,106 @@
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useVacanciesStore } from '@/entities/vacancy/model/vacancy-store';
-import { useRouter } from 'vue-router';
-import { Location, Star, Expand } from '@element-plus/icons-vue'
-import { optionsOrderBy } from '@/shared/constants/OptionsOrderBy';
-import VacancyFilter from '@/widgets/VacancyFilter.vue';
-
-const vacanciesStore = useVacanciesStore();
-const router = useRouter();
-const optionOrderBy = ref('');
-const drawer = ref(false)
-
-onMounted(async () => {
-  await vacanciesStore.setCountVacancies();
-});
-
-const handleRedirectToMap = (): void => {
-  router.push({ path: '/map', query: vacanciesStore.getSettingsFilter });
-};
-
-const handleRedirectToFavourites = (): void => {
-  router.push({ path: '/favourites' });
-};
-
-const handleVacanciesOrderBy = (): void => {
-  vacanciesStore.setOrderBy(optionOrderBy.value);
-};
-</script>
-
 <template>
   <div class="vacancies-panel">
     <div class="vacancies-panel__content">
       <h3>Найдено вакансий: {{ vacanciesStore.getCountVacancies }}</h3>
-      <el-select
-          v-model="optionOrderBy"
-          placeholder="Сортировать по"
-          @change="handleVacanciesOrderBy"
+      <ElSelect
+        v-model="selectedOrderBy"
+        placeholder="Сортировать по"
+        @change="onVacanciesOrderBy"
       >
-        <el-option
-            v-for="options in optionsOrderBy"
-            :key="options.name"
-            :label="options.name"
-            :value="options.id"
+        <ElOption
+          v-for="options in optionsOrderBy"
+          :key="options.name"
+          :label="options.name"
+          :value="options.id"
         />
-      </el-select>
-      <div class="vacancies-panel__buttons">
-        <el-button type="primary" :icon="Location" @click="handleRedirectToMap">
+      </ElSelect>
+
+      <div class="vacancies-panel__actions">
+        <ElButton :icon="Location" @click="onRedirectToMap">
           Показать на карте
-        </el-button>
-        <el-button type="primary" :icon="Star" @click="handleRedirectToFavourites">
-          Показать избранное
-        </el-button>
-        <el-button type="primary" :icon="Expand" @click="drawer = true">
-          Показать фильтр
-        </el-button>
+        </ElButton>
+
+        <ElButton :icon="Star" @click="onRedirectToFavourites">
+          Избранное
+        </ElButton>
+
+        <ElButton :icon="Expand" @click="onOpenFilter">
+          Фильтр
+        </ElButton>
       </div>
-      <el-drawer
-          v-model="drawer"
-          title="Фильтр"
-          :direction="'ttb'"
-          :size="'100%'"
+
+      <ElDrawer
+        v-model="isDrawer"
+        title="Фильтр"
+        :direction="'ttb'"
+        :size="'100%'"
       >
-        <vacancy-filter :is-drawer="true" />
-      </el-drawer>
+        <VacancyFilter is-drawer />
+      </ElDrawer>
     </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useVacanciesStore } from "@/entities/vacancy/model/vacancy-store";
+import { Location, Star, Expand } from "@element-plus/icons-vue"
+import { optionsOrderBy } from "@/shared/constants/OptionsOrderBy";
+import VacancyFilter from "@/widgets/VacancyFilter.vue";
+
+const router = useRouter();
+const vacanciesStore = useVacanciesStore();
+
+const selectedOrderBy = ref('');
+const isDrawer = ref(false);
+
+const onRedirectToMap = (): void => {
+  router.push({ path: '/map', query: vacanciesStore.getSettingsFilter });
+};
+
+const onRedirectToFavourites = (): void => {
+  router.push({ path: '/favourites' });
+};
+
+const onVacanciesOrderBy = (): void => {
+  vacanciesStore.setOrderBy(selectedOrderBy.value);
+};
+
+const onOpenFilter = (): void => {
+  isDrawer.value = true;
+};
+
+onMounted(() => {
+  vacanciesStore.setCountVacancies();
+});
+</script>
+
 <style lang="scss" scoped>
 .vacancies-panel {
-  display: flex;
-  justify-content: center;
+  max-width: 1280px;
   width: 100%;
 
   &__content {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     gap: 15px;
     padding: 20px 50px;
-    background-color: rgba(53, 76, 107, 0.10);
+    background-color: #111111;
     border-radius: 10px;
 
     @media screen and (max-width: 510px) {
-      margin: 10px;
       padding: 20px 10px;
       justify-content: center;
     }
   }
 
-  &__buttons {
+  &__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
 
     @media screen and (max-width: 510px) {
       flex-direction: column;

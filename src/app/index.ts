@@ -12,7 +12,7 @@ const settings = {
     apiKey: '',
     lang: 'ru_RU',
     coordorder: 'latlong',
-    debug: true,
+    debug: false,
     version: '2.1'
 }
 

@@ -1,11 +1,72 @@
-<script setup lang="ts">
-import {defineProps, ref, watch} from 'vue';
-import { useVacanciesStore } from '@/entities/vacancy/model/vacancy-store';
-import { specialtiesList } from '@/shared/constants/SpecialtiesList';
+<template>
+  <div :class="wrapperClass">
+    <ElScrollbar height="700px">
+      <div class="vacancy-filter__item">
+        <p class="vacancy-filter__name">Специализация</p>
 
-const props = defineProps({
-    isDrawer: Boolean,
+        <ElSelect
+          v-model="specialty"
+          placeholder="Выбрать"
+          :reserve-keyword="false"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+        >
+          <ElOption
+            v-for="specialty in specialtiesList"
+            :key="specialty.value"
+            :label="specialty.label"
+            :value="specialty.value"
+          />
+        </ElSelect>
+      </div>
+
+      <div class="vacancy-filter__item">
+        <p class="vacancy-filter__name">Уровень дохода</p>
+        <ElRadioGroup v-model="income">
+          <ElRadio :label="25000">От 25000 руб</ElRadio>
+          <ElRadio :label="85000">От 85000 руб</ElRadio>
+          <ElRadio :label="150000">От 150 000 руб</ElRadio>
+          <ElRadio :label="210000">От 210 000 руб</ElRadio>
+          <ElRadio :label="275000">От 275 000 руб</ElRadio>
+        </ElRadioGroup>
+      </div>
+
+      <div class="vacancy-filter__item">
+        <p class="vacancy-filter__name">Локация</p>
+        <ElRadioGroup v-model="city">
+          <ElRadio :label="1">Москва</ElRadio>
+          <ElRadio :label="4">Новосибирск</ElRadio>
+        </ElRadioGroup>
+      </div>
+
+      <div class="vacancy-filter__item">
+        <p class="vacancy-filter__name">График работы</p>
+        <ElRadioGroup v-model="schedule">
+          <ElRadio :label="'remote'">Удаленая работа</ElRadio>
+          <ElRadio :label="'fullDay'">Полный рабочий день</ElRadio>
+          <ElRadio :label="'flexible'">Гибкий график</ElRadio>
+        </ElRadioGroup>
+      </div>
+    </ElScrollbar>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
+import { useVacanciesStore } from "@/entities/vacancy/model/vacancy-store";
+import { specialtiesList } from "@/shared/constants/SpecialtiesList";
+
+interface IProps {
+  isDrawer?: boolean;
+}
+
+const props = withDefaults(defineProps<IProps>(), {
+  isDrawer: false,
 });
+
+const vacanciesStore = useVacanciesStore();
 
 const specialty = ref<string[]>([]);
 const income = ref<number>();
@@ -13,9 +74,9 @@ const city = ref<string>();
 const level = ref<string>();
 const schedule = ref<string[]>();
 
-const vacanciesStore = useVacanciesStore();
+const wrapperClass = computed(() => props.isDrawer ? 'vacancy-filter-draw' : 'vacancy-filter')
 
-const handleChangeFilter = (): void => {
+const onChangeFilter = (): void => {
   const optionsFilter = {
     text: specialty?.value.join(' OR '),
     schedule: schedule?.value,
@@ -25,70 +86,16 @@ const handleChangeFilter = (): void => {
   vacanciesStore.setFilter(optionsFilter);
 };
 
-watch([specialty, income, city, level, schedule], () => {
-  handleChangeFilter();
-});
+watch([specialty, income, city, level, schedule], onChangeFilter);
 </script>
-
-<template>
-  <div :class="isDrawer ? 'vacancy-filter-draw' : 'vacancy-filter'">
-    <el-scrollbar height="700px">
-      <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Специализация</p>
-        <el-select
-            v-model="specialty"
-            multiple
-            filterable
-            allow-create
-            default-first-option
-            :reserve-keyword="false"
-            placeholder="Выбрать"
-        >
-          <el-option
-              v-for="specialty in specialtiesList"
-              :key="specialty.value"
-              :label="specialty.label"
-              :value="specialty.value"
-          />
-        </el-select>
-      </div>
-
-      <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Уровень дохода</p>
-        <el-radio-group v-model="income">
-          <el-radio :label="25000">От 25000 руб</el-radio>
-          <el-radio :label="85000">От 85000 руб</el-radio>
-          <el-radio :label="150000">От 150 000 руб</el-radio>
-          <el-radio :label="210000">От 210 000 руб</el-radio>
-          <el-radio :label="275000">От 275 000 руб</el-radio>
-        </el-radio-group>
-      </div>
-
-      <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Локация</p>
-        <el-radio-group v-model="city">
-          <el-radio :label="1">Москва</el-radio>
-          <el-radio :label="4">Новосибирск</el-radio>
-        </el-radio-group>
-      </div>
-
-      <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">График работы</p>
-        <el-radio-group v-model="schedule">
-          <el-radio :label="'remote'">Удаленая работа</el-radio>
-          <el-radio :label="'fullDay'">Полный рабочий день</el-radio>
-          <el-radio :label="'flexible'">Гибкий график</el-radio>
-        </el-radio-group>
-      </div>
-    </el-scrollbar>
-  </div>
-</template>
 
 <style lang="scss">
 .vacancy-filter {
-  width: 300px;
-  padding: 20px;
-  margin: 10px;
+  max-width: 300px;
+  height: 610px;
+  padding: 10px;
+  background-color: #111111;
+  border-radius: 10px;
 
   &__item {
     margin: 10px;

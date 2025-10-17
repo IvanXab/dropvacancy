@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { fileURLToPath, URL } from "node:url";
+import path from "path";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import svgLoader from "vite-svg-loader";
 import AutoImport from "unplugin-auto-import/vite";
@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, './src')
     },
   },
 })
