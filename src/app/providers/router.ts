@@ -46,7 +46,7 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    component: () => import('@/pages/404.vue'),
+    component: () => import('@/pages/NotFoundPage.vue'),
   },
 ]
 
