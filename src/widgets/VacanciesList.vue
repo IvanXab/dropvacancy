@@ -65,7 +65,6 @@ onMounted(() => {
 });
 </script>
 
-
 <style lang="scss" scoped>
 .vacancies-list {
   display: flex;

@@ -1,15 +1,39 @@
+<template>
+  <div class="vacancies-map">
+    <template v-if="vacanciesStore.getVacancies">
+      <YandexMap :settings="settings" :coordinates="[55.45, 37.37]" :zoom="7" >
+        <YandexClusterer :options="{ preset: 'islands#nightClusterIcons' }">
+          <template v-for="vacancy in vacanciesStore.getVacancies">
+            <template v-if="vacancy.address?.lat && vacancy.address?.lng" :key="vacancy.id">
+                <YandexMarker
+                  :properties="{ iconCaption: vacancy.name }"
+                  :coordinates="[vacancy.address.lat, vacancy.address.lng]"
+                  :marker-id="vacancy.id"
+                >
+                  <template #component>
+                    <VacancyBalloon :vacancy="vacancy"/>
+                  </template>
+                </YandexMarker>
+            </template>
+          </template>
+        </YandexClusterer>
+      </YandexMap>
+    </template>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { YandexClusterer, YandexMap, YandexMarker } from 'vue-yandex-maps'
-import { onMounted } from 'vue';
-import { useVacanciesStore } from '@/entities/vacancy/model/vacancy-store';
-import VacancyBalloon from '@/entities/vacancy/ui/vacancy-balloon.vue';
-import { useRoute } from 'vue-router';
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { YandexClusterer, YandexMap, YandexMarker } from "vue-yandex-maps"
+import { useVacanciesStore } from "@/entities/vacancy/model/vacancy-store";
+import VacancyBalloon from "@/entities/vacancy/ui/vacancy-balloon.vue";
 
 const vacanciesStore = useVacanciesStore();
 const route = useRoute();
 
 const settings = {
-  apiKey: '9f1bb2b3-f21c-44d6-bfe9-f8adf1f152bf',
+  apiKey: import.meta.env.VITE_YANDEX_MAP_KEY,
   lang: 'ru_RU',
   coordorder: 'latlong',
   debug: true,
@@ -20,48 +44,14 @@ onMounted(async () => {
   if (Object.keys(route.query).length) {
     await vacanciesStore.setFilter(route.query);
     await vacanciesStore.setVacanciesMap();
+    return
   }
-  else {
-    await vacanciesStore.setVacancies();
-  }
+  await vacanciesStore.setVacancies();
 });
 </script>
 
-<template>
-  <div class="vacancies-map">
-    <template v-if="vacanciesStore.getVacancies">
-      <yandex-map :settings="settings" :coordinates="[55.45, 37.37]" :zoom="7" >
-        <yandex-clusterer :options="{ preset: 'islands#nightClusterIcons' }">
-          <template v-for="vacancy in vacanciesStore.getVacancies">
-            <template v-if="vacancy.address?.lat && vacancy.address?.lng" :key="vacancy.id">
-                <yandex-marker
-                    :properties="{ iconCaption: vacancy.name }"
-                    :coordinates="[vacancy.address.lat, vacancy.address.lng]"
-                    :marker-id="vacancy.id"
-                >
-                  <template #component>
-                    <vacancy-balloon :vacancy="vacancy"/>
-                  </template>
-                </yandex-marker>
-            </template>
-          </template>
-        </yandex-clusterer>
-      </yandex-map>
-    </template>
-  </div>
-</template>
-
-<style lang="scss">
-.yandex-container {
-  width: 100%;
-  height: 100vh;
+<style lang="scss" scoped>
+.vacancies-map {
+  padding: 24px;
 }
-.yandex-balloon {
-  height: 200px;
-  width: 200px;
-}
-.ymaps-2-1-79-map ymaps, .ymaps-2-1-79-map  .ymaps-2-1-79-map ymaps:after {
-  border-radius: 10px;
-}
-
 </style>

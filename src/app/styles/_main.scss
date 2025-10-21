@@ -23,3 +23,15 @@ html, body {
   width: 100%;
   height: 100%;
 }
+
+.yandex-container {
+  width: 100%;
+  height: 100vh;
+}
+.yandex-balloon {
+  height: 200px;
+  width: 200px;
+}
+.ymaps-2-1-79-map ymaps, .ymaps-2-1-79-map  .ymaps-2-1-79-map ymaps:after {
+  border-radius: 10px;
+}

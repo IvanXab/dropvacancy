@@ -44,8 +44,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useVacanciesStore } from "@/entities/vacancy/model/vacancy-store";
 import { Location, Star, Expand } from "@element-plus/icons-vue"
+import { useVacanciesStore } from "@/entities/vacancy/model/vacancy-store";
 import { optionsOrderBy } from "@/shared/constants/OptionsOrderBy";
 import VacancyFilter from "@/widgets/VacancyFilter.vue";
 

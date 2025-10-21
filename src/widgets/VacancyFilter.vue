@@ -2,7 +2,7 @@
   <div :class="wrapperClass">
     <ElScrollbar height="700px">
       <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Специализация</p>
+        <div class="vacancy-filter__name">Специализация</div>
 
         <ElSelect
           v-model="specialty"
@@ -23,7 +23,7 @@
       </div>
 
       <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Уровень дохода</p>
+        <div class="vacancy-filter__name">Уровень дохода</div>
         <ElRadioGroup v-model="income">
           <ElRadio :label="25000">От 25000 руб</ElRadio>
           <ElRadio :label="85000">От 85000 руб</ElRadio>
@@ -34,7 +34,7 @@
       </div>
 
       <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">Локация</p>
+        <div class="vacancy-filter__name">Локация</div>
         <ElRadioGroup v-model="city">
           <ElRadio :label="1">Москва</ElRadio>
           <ElRadio :label="4">Новосибирск</ElRadio>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="vacancy-filter__item">
-        <p class="vacancy-filter__name">График работы</p>
+        <div class="vacancy-filter__name">График работы</div>
         <ElRadioGroup v-model="schedule">
           <ElRadio :label="'remote'">Удаленая работа</ElRadio>
           <ElRadio :label="'fullDay'">Полный рабочий день</ElRadio>
@@ -89,7 +89,7 @@ const onChangeFilter = (): void => {
 watch([specialty, income, city, level, schedule], onChangeFilter);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .vacancy-filter {
   max-width: 300px;
   height: 610px;
