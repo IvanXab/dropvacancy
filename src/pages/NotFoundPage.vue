@@ -1,25 +1,31 @@
 <template>
-  <div class="not-found-warning">
-    <h1>Ошибка 404</h1>
-    <p>Страница не найдена :(</p>
-    <router-link class="not-found-warning__link" to="/vacancies">
+  <div class="not-found-page">
+    <h1>404</h1>
+    <div class="not-found-page__message">Страница не найдена :(</div>
+
+    <RouterLink class="not-found-page__link" to="/vacancies">
       Вернуться к просмотру вакансий
-    </router-link>
+    </RouterLink>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.not-found-warning {
+.not-found-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 24px;
   height: 100vh;
   font-size: 36px;
   text-align: center;
 
+  &__message {
+    font-size: 18px;
+  }
+
   &__link {
+    font-size: 16px;
     text-align: center;
     color: #5a8dce;
 

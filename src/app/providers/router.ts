@@ -17,7 +17,7 @@ const routes = [
       {
         path: '/vacancies',
         name: 'VacanciesView',
-        component: () => import('@/pages/VacanciesView.vue'),
+        component: () => import('@/pages/VacanciesPage.vue'),
       },
       {
         path: '/favourites',
@@ -32,7 +32,7 @@ const routes = [
       {
         path: '/vacancy/:id',
         name: 'AboutVacancy',
-        component: () => import('@/pages/VacancyAbout.vue'),
+        component: () => import('@/pages/VacancyDetailPage.vue'),
       }
     ],
   },

@@ -1,15 +1,15 @@
-<script setup lang="ts">
-import VacancyList from '@/widgets/VacancyList.vue';
-</script>
-
 <template>
   <div class="favourites-view">
     <div class="favourites-view__content">
       <h1>Избранные вакансии</h1>
-      <vacancy-list :is-favourites="true" />
+      <VacancyList is-favourites />
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import VacancyList from "@/widgets/VacancyList.vue";
+</script>
 
 <style lang="scss" scoped>
 .favourites-view {
