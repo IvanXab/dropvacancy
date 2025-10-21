@@ -1,12 +1,44 @@
+<template>
+  <div class="auth-form">
+    <ElForm
+      :rules="RulesForm"
+      :model="dataAuthForm"
+      ref="ruleFormRef"
+      :size="'default'"
+    >
+      <ElFormItem prop="email">
+        <ElInput v-model="dataAuthForm.email" placeholder="Почта" />
+      </ElFormItem>
+
+      <ElFormItem prop="password">
+        <ElInput
+          v-model="dataAuthForm.password"
+          type="password"
+          placeholder="Пароль"
+          show-password
+        />
+      </ElFormItem>
+    </ElForm>
+
+    <ElButton
+      type="primary"
+      round
+      @click="onSubmitForm(ruleFormRef)"
+    >
+      Войти
+    </ElButton>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import { authApi } from '@/entities/user/api/user-api';
-import { ElNotification } from 'element-plus';
-import RulesForm from '@/shared/constants/RulesForm';
-import type { TUser }  from '@/shared/types/TUser';
-import type { FormInstance } from 'element-plus';
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { ElNotification } from "element-plus";
+import type { FormInstance } from "element-plus";
 import Cookies from "js-cookie";
+import { authApi } from "@/entities/user/api/user-api";
+import RulesForm from "@/shared/constants/RulesForm";
+import type { TUser }  from "@/shared/types/TUser";
 
 const dataAuthForm = reactive<TUser>({
   email: '',
@@ -16,8 +48,7 @@ const dataAuthForm = reactive<TUser>({
 const ruleFormRef = ref<FormInstance>();
 const router = useRouter();
 
-const handleSubmitForm = async (formEl: FormInstance | undefined):Promise<void> => {
-
+const onSubmitForm = async (formEl: FormInstance | undefined): Promise<void> => {
   if (!formEl) return;
 
   await formEl.validate(async (valid) => {
@@ -33,67 +64,37 @@ const handleSubmitForm = async (formEl: FormInstance | undefined):Promise<void> 
               position: 'bottom-right',
             });
           });
+          return;
         }
-        else {
-          ElNotification({
-              title: error.message,
-              type: 'error',
-              position: 'bottom-right',
-          });
-        }
+
+        ElNotification({
+          title: error.message,
+          type: 'error',
+          position: 'bottom-right',
+        });
       }
 
       if (response) {
         ElNotification({
-            title: 'Успех! Вы вошли!',
-            type: 'success',
-            position: 'bottom-right',
+          title: 'Успех! Вы вошли!',
+          type: 'success',
+          position: 'bottom-right',
         });
+
         Cookies.set('ID', response.user._id)
         Cookies.set('ACCESS_TOKEN_KEY', response.accessToken, { expires: 30 })
         await router.push({ path: '/vacancies' });
       }
+      return;
     }
-    else {
-      ElNotification({
-          title: 'Заполните правильно форму!',
-          type: 'error',
-          position: 'bottom-right',
-      });
-    }
+    ElNotification({
+      title: 'Заполните правильно форму!',
+      type: 'error',
+      position: 'bottom-right',
+    });
   });
 };
 </script>
-
-<template>
-  <div class="auth-form">
-    <el-form
-        :rules="RulesForm"
-        :model="dataAuthForm"
-        ref="ruleFormRef"
-        :size="'default'"
-    >
-      <el-form-item prop="email">
-        <el-input v-model="dataAuthForm.email" placeholder="Почта" />
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-            v-model="dataAuthForm.password"
-            type="password"
-            placeholder="Пароль"
-            show-password
-        />
-      </el-form-item>
-    </el-form>
-    <el-button 
-      @click="handleSubmitForm(ruleFormRef)" 
-      type="primary" 
-      round
-    >
-      Войти
-    </el-button>
-  </div>
-</template>
 
 <style lang="scss" scoped>
 .auth-form {
