@@ -25,6 +25,7 @@ import VacanciesList from "@/widgets/VacanciesList.vue";
   &__content {
     display: flex;
     justify-content: space-between;
+    gap: 24px;
     max-width: 1280px;
     width: 100%;
 
