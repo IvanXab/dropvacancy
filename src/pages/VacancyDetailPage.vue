@@ -1,22 +1,23 @@
 <template>
-  <div class="vacancy-about">
-    <div class="vacancy-about__content">
-      <div class="vacancy-about__title">
+  <div class="vacancy-detail-page">
+    <div class="vacancy-detail-page__content">
+      <div class="vacancy-detail-page__title">
         <div class="title-content">
           <h1>{{ vacancy?.name }}</h1>
           <img :src="vacancy?.employer?.logo_urls?.original" alt="" />
         </div>
+
         <h3 v-if="vacancy?.salary?.from">от {{ vacancy?.salary?.from }} руб. на руки</h3>
-        <p>Требуемый опыт работы: {{ vacancy?.experience?.name }}</p>
-        <p>Тип занятости: {{ vacancy?.employment?.name }}</p>
+        <div>Требуемый опыт работы: {{ vacancy?.experience?.name }}</div>
+        <div>Тип занятости: {{ vacancy?.employment?.name }}</div>
       </div>
 
       <h2>Описание:</h2>
-      <div class="vacancy-about__description" v-html="vacancy?.description"></div>
+      <div class="vacancy-detail-page__description" v-html="vacancy?.description" />
 
       <template v-if="vacancy?.key_skills.length">
         <h2>Ключевые навыки:</h2>
-        <div class="vacancy-about__tags">
+        <div class="vacancy-detail-page__tags">
           <ElTag
             v-for="skill in vacancy?.key_skills"
             :key="skill.name"
@@ -32,7 +33,7 @@
 
       <template v-if="vacancy?.address?.lat && vacancy?.address?.lng">
         <h2>Адрес</h2>
-        <div class="vacancy-about__tags">
+        <div class="vacancy-detail-page__tags">
           <YandexMap :settings="settings" :coordinates="[vacancy?.address?.lat, vacancy?.address?.lng]" :zoom="18" >
             <YandexMarker
               :coordinates="[vacancy?.address?.lat, vacancy?.address?.lng]"
@@ -70,8 +71,8 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="scss">
-.vacancy-about {
+<style lang="scss" scoped>
+.vacancy-detail-page {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -118,11 +119,11 @@ onMounted(async () => {
       padding: 0;
     }
 
-    strong {
+    :deep(strong) {
       font-weight: bolder;
     }
 
-    li {
+    :deep(li) {
       margin-left: 15px;
       margin-bottom: 15px;
     }

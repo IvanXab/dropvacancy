@@ -12,7 +12,7 @@ const routes = [
       {
         path: '/analytics',
         name: 'HomeView',
-        component: () => import('@/pages/HomeView.vue'),
+        component: () => import('@/pages/VacanciesAnalyticsPage.vue'),
       },
       {
         path: '/vacancies',
@@ -22,17 +22,22 @@ const routes = [
       {
         path: '/favourites',
         name: 'FavouritesView',
-        component: () => import('@/pages/FavouritesView.vue'),
+        component: () => import('@/pages/VacanciesFavouritesPage.vue.vue'),
       },
       {
         path: '/map',
         name: 'MapView',
-        component: () => import('@/pages/VacanciesMap.vue'),
+        component: () => import('@/pages/VacanciesMapPage.vue'),
       },
       {
         path: '/vacancy/:id',
         name: 'AboutVacancy',
         component: () => import('@/pages/VacancyDetailPage.vue'),
+      },
+      {
+        path: '/auth',
+        name: 'Auth',
+        component: () => import('@/pages/AuthPage.vue'),
       }
     ],
   },
