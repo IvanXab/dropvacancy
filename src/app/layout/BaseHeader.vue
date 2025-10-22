@@ -1,6 +1,6 @@
 <template>
   <div class="base-header">
-    <RouterLink class="base-header__logo" to="/home">Dropvacancy</RouterLink>
+    <RouterLink class="base-header__logo" to="/vacancies">Dropvacancy</RouterLink>
     <ElRow :gutter="10" class="hidden-sm-and-down">
       <ElCol :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
         <div class="base-header__nav">
@@ -8,7 +8,7 @@
             Вакансии
           </RouterLink>
 
-          <RouterLink class="base-header__link" to="/home">
+          <RouterLink class="base-header__link" to="/analytics">
             Аналитика
           </RouterLink>
 

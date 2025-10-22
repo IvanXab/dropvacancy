@@ -17,9 +17,8 @@ import BaseFooter from "@/app/layout/BaseFooter.vue";
 .base-layout {
   &__content {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    min-height: 100%;
+    height: 100%;
   }
 }
 </style>
