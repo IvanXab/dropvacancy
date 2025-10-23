@@ -4,7 +4,7 @@ import YmapPlugin from 'vue-yandex-maps';
 import ElementPlus from 'element-plus';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import 'element-plus/dist/index.css';
-import router from '@/app/providers/router';
+import router from '@/app/router/router';
 import '@/app/index.scss';
 import App from '@/app/index.vue';
 
